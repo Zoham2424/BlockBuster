@@ -31,14 +31,16 @@ namespace BlockBuster.Test
         [Fact]
         public void TestGetMoviesByGenre()
         {
-            List<Movie> actionMovies = BasicFunctions.GetMoviesByGenre("Action");
+            List<Movie> actionMovies = 
+                BasicFunctions.GetMoviesByGenre("Action");
             Assert.All(actionMovies, movie => Assert.Equal("Action", movie.Genre.GenreDescr));
         }
 
         [Fact]
         public void TestGetMoviesByDirectorLastName()
         {
-            List<Movie> ByDirecMovies = BasicFunctions.GetMoviesByDirectorLastName("Spielberg");
+            List<Movie> ByDirecMovies = 
+                BasicFunctions.GetMoviesByDirectorLastName("Spielberg");
             Assert.All(ByDirecMovies, movie => Assert.Equal("Spielberg", movie.Director.LastName));
         }
     }
