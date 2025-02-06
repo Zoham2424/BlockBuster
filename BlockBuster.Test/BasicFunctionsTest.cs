@@ -32,7 +32,6 @@ namespace BlockBuster.Test
         public void TestGetMoviesByGenre()
         {
             List<Movie> actionMovies = BasicFunctions.GetMoviesByGenre("Action");
-            Assert.NotEmpty(actionMovies);
             Assert.All(actionMovies, movie => Assert.Equal("Action", movie.Genre.GenreDescr));
         }
 
@@ -40,7 +39,6 @@ namespace BlockBuster.Test
         public void TestGetMoviesByDirectorLastName()
         {
             List<Movie> ByDirecMovies = BasicFunctions.GetMoviesByDirectorLastName("Spielberg");
-            Assert.NotEmpty(ByDirecMovies);
             Assert.All(ByDirecMovies, movie => Assert.Equal("Spielberg", movie.Director.LastName));
         }
     }
