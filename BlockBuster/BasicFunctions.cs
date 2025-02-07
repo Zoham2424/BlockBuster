@@ -1,4 +1,5 @@
 ﻿using BlockBuster.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlockBuster
 {
@@ -45,18 +46,30 @@ namespace BlockBuster
             using (var context = new Se407BlockBusterContext())
             {
                 return context
-                    .Movies
-                    .Where(m => m.Genre.GenreDescr == genreDescription)
+                    .Genres
+                    .Where(g => g.GenreDescr == genreDescription)
+                    .Join(
+                    context.Movies,
+                    g => g.GenreId,
+                    m => m.GenreId,
+                    (g, m) => m
+                    )
                     .ToList();
             }
         }
+
         public static List<Movie> GetMoviesByDirectorLastName(string lastName)
         {
             using (var context = new Se407BlockBusterContext())
             {
-                return context
-                    .Movies
-                    .Where(m => m.Director.LastName == lastName)
+                return context.Directors
+                    .Where(d => d.LastName == lastName)
+                    .Join(
+                        context.Movies,
+                        d => d.DirectorId,
+                        m => m.DirectorId,
+                        (d, m) => m
+                    )
                     .ToList();
             }
         }

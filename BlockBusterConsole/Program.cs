@@ -10,7 +10,6 @@ namespace BlockBuster.ConsoleApp
         {
             List<Movie> movies = new List<Movie>();
 
-
             Console.WriteLine("How would you like the output? (CSV or Console)");
             string outputType = Console.ReadLine()?.ToUpper();
 
@@ -28,8 +27,12 @@ namespace BlockBuster.ConsoleApp
             {
                 Console.WriteLine("Enter the parameter (e.g., Genre name or Director's Last Name):");
                 parameter = Console.ReadLine();
+                if (string.IsNullOrEmpty(parameter))
+                {
+                    Console.WriteLine("Parameter cannot be null or empty.");
+                    return;
+                }
             }
-
 
             switch (function)
             {
