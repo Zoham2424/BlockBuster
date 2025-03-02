@@ -41,6 +41,20 @@ namespace BlockBuster
                         .ToList();
             }
         }
+
+        public static List<Movie> GetAllMoviesWithDetails()
+        {
+            using (var context = new Se407BlockBusterContext())
+            {
+                return
+                    context
+                        .Movies
+                        .Include(movie => movie.Director)
+                        .Include(movie => movie.Genre)
+                        .ToList();
+
+            }
+        }
         public static List<Movie> GetMoviesByGenre(string genreDescription)
         {
             using (var context = new Se407BlockBusterContext())
