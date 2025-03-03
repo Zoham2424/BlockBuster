@@ -178,5 +178,19 @@ namespace BlockBuster
             }
         }
 
+        public static void EditMovie(Movie movie)
+        {
+            try
+            {
+                using (var db = new Se407BlockBusterContext())
+                {
+                    db.Movies.Update(movie);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
     }
 }
