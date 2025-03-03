@@ -55,6 +55,19 @@ namespace BlockBuster
 
             }
         }
+
+        public static Movie? GetMovieWithDetailsById(int movieId)
+        {
+            using (var context = new Se407BlockBusterContext())
+            {
+                return
+                    context
+                        .Movies
+                        .Include(movie => movie.Director)
+                        .Include(movie => movie.Genre)
+                        .FirstOrDefault(movie => movie.MovieId == movieId);
+            }
+        }
         public static List<Movie> GetMoviesByGenre(string genreDescription)
         {
             using (var context = new Se407BlockBusterContext())
@@ -87,5 +100,83 @@ namespace BlockBuster
                     .ToList();
             }
         }
+
+        public static List<Genre> GetAllGenres()
+        {
+            using (var context = new Se407BlockBusterContext())
+            {
+                return
+                    context.Genres.ToList();
+            }
+        }
+
+        public static Genre? GetGenreById(int genreId)
+        {
+            using (var context = new Se407BlockBusterContext())
+            {
+                return
+                    context.Genres.FirstOrDefault(genre => genre.GenreId == genreId);
+            }
+        }
+
+        public static List<Director> GetAllDirectors()
+        {
+            using (var context = new Se407BlockBusterContext())
+            {
+                return
+                    context.Directors.ToList();
+            }
+        }
+        public static Director? GetDirectorById(int directorId)
+        {
+            using (var context = new Se407BlockBusterContext())
+            {
+                return
+                    context.Directors.FirstOrDefault(dir => dir.DirectorId == directorId);
+            }
+        }
+        public static void UpdateMovie
+       (
+           int movieId,
+           string updatedTitle,
+           int updatedReleaseYear,
+           Director updatedDirector,
+           Genre updatedGenre
+       )
+        {
+            using (var context = new Se407BlockBusterContext())
+            {
+                var movieToUpdate = GetMovieById(movieId);
+
+                if (movieToUpdate != null)
+                {
+                    movieToUpdate.Title = updatedTitle;
+                    movieToUpdate.ReleaseYear = updatedReleaseYear;
+                    movieToUpdate.Director = updatedDirector;
+                    movieToUpdate.Genre = updatedGenre;
+                }
+
+                context.Update(movieToUpdate);
+
+                context.SaveChanges();
+            }
+        }
+        public static void DeleteMovie(int id)
+        {
+            try
+            {
+                using (var db = new Se407BlockBusterContext())
+                {
+                    var movieToDelete = db.Movies.Find(id);
+                    db.Movies.Remove(movieToDelete);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
     }
 }
