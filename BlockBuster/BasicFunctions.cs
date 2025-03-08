@@ -188,7 +188,7 @@ namespace BlockBuster
                     db.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
             }
         }
